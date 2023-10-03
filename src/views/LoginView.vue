@@ -12,6 +12,7 @@
           <input
             type="text"
             id="email"
+            v-model="user.email"
             placeholder="Digite seu email"
             class="w-full h-full p-2 rounded-lg"
           />
@@ -21,13 +22,14 @@
           <input
             type="password"
             id="senha"
+            v-model="user.senha"
             placeholder="Digite sua senha"
             class="w-full h-full p-2 rounded-lg"
           />
         </div>
         <button
           class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg mt-2"
-          @click="isCadastro = true"
+          @click="fazerLogin"
         >
           Entrar
         </button>
@@ -41,4 +43,30 @@
     </div>
   </div>
 </template>
-<script setup></script>
+
+<script setup>
+import { ref } from 'vue';
+import router from '@/router/index.js'; 
+
+const isCadastro = ref(false);
+const user = {
+  email: '',
+  senha: '',
+};
+
+function fazerLogin() {
+  // Simulação de validação de login (substitua por sua lógica real)
+  const usuariosCadastrados = JSON.parse(localStorage.getItem('usuarios')) || [];
+  const usuarioEncontrado = usuariosCadastrados.find(u => u.email === user.email && u.senha === user.senha);
+
+  if (usuarioEncontrado) {
+    // Armazenar os dados do usuário no Local Storage
+    localStorage.setItem('user', JSON.stringify(usuarioEncontrado));
+
+    router.push('/home');
+  } else {
+    alert('Credenciais incorretas. Tente novamente.');
+  }
+}
+
+</script>
