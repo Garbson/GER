@@ -1,7 +1,8 @@
 <template>
+  <div class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('src/img/background.jpg')]">
     <TheSidebar></TheSidebar>
-    <div class="min-h-screen bg-gray-100 bg-cover bg-center bg-no-repeat h-screen flex justify-center items-center bg-[url('src/img/background.jpg')]">
-      <div class="max-w-lg w-full h-full p-8 bg-white rounded-lg shadow-md relative mb-5">
+    <div class="flex justify-center items-center">
+      <div class="max-w-lg w-11/12 h-full mb-5 p-8 bg-white rounded-lg shadow-md relative mt-5">
         <h1 class="text-3xl font-semibold text-blue-600 mb-4 flex justify-center">Meu Caderno de Metas</h1>
         <div class="mb-4">
           <input
@@ -41,6 +42,7 @@
         </div>
       </div>
     </div>
+  </div>
   </template>
   
   <script setup>

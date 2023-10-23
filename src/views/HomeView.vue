@@ -1,98 +1,146 @@
 <template>
-  <TheSidebar></TheSidebar>
   <div
-    class="bg-cover bg-center bg-no-repeat h-screen flex justify-center items-center bg-[url('src/img/background.jpg')]"
+    class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('src/img/background.jpg')]"
   >
-  
+    <TheSidebar></TheSidebar>
     <div
-      v-if="two"
-      class="absolute z-10 bg-white border border-gray-300 p-4 rounded shadow-md"
+      class="bg-center bg-no-repeat max-h-max flex flex-col justify-center items-center"
     >
-      <div class="text-red-500">
-        Adicionando lembrete para o dia {{ selectedDay }}
+      <div
+        v-if="two"
+        class="absolute z-10 bg-white border border-gray-300 p-4 rounded shadow-md mb-5"
+      >
+        <div class="text-red-500">
+          Adicionando lembrete para o dia {{ selectedDay }}
+        </div>
+        <input
+          v-model="reminderText"
+          class="border border-gray-300 p-2 rounded w-full mt-2"
+          placeholder="Digite seu lembrete aqui"
+        />
+        <div class="mt-3 flex justify-end">
+          <button
+            @click="
+              saveReminder(
+                selectedYear,
+                selectedMonth,
+                selectedDay,
+                reminderText
+              )
+            "
+            class="text-white bg-blue-500 px-3 py-1 rounded"
+          >
+            Salvar
+          </button>
+          <button
+            @click="
+              two = false;
+              reminderText = '';
+            "
+            class="text-gray-600 ml-2"
+          >
+            Cancelar
+          </button>
+        </div>
       </div>
-      <input
-        v-model="reminderText"
-        class="border border-gray-300 p-2 rounded w-full mt-2"
-        placeholder="Digite seu lembrete aqui"
-      />
-      <div class="mt-3 flex justify-end">
-        <button
-          @click="saveReminder(selectedYear, selectedMonth, selectedDay, reminderText)"
-          class="text-white bg-blue-500 px-3 py-1 rounded"
-        >
-          Salvar
-        </button>
-        <button
-          @click="two = false; reminderText = '';"
-          class="text-gray-600 ml-2"
-        >
-          Cancelar
-        </button>
-      </div>
-    </div>
-    <div class="max-w-6xl w-full">
-      <div class="bg-blue-500 rounded-lg shadow-lg">
+      <div class="w-11/12 mt-5">
         <div
-          class="flex items-center justify-between p-2 bg-blue-500 text-white rounded-t-lg"
+          class="rounded-lg shadow-lg calendar bg-blue-500 w-full h-full max-h-screen mb-5"
         >
-          <i class="fas fa-angle-left cursor-pointer" @click="previousMonth"
-            >Previous</i
-          >
-          <div class="text-lg">{{ currentMonth }}</div>
-          <i class="fas fa-angle-right cursor-pointer " @click="nextMonth"
-            >Next</i
-          >
-        </div>
-        <div class="flex justify-between bg-blue-500 text-white p-2">
-          <div class="w-1/7 text-center font-semibold">Sun</div>
-          <div class="w-1/7 text-center font-semibold">Mon</div>
-          <div class="w-1/7 text-center font-semibold">Tue</div>
-          <div class="w-1/7 text-center font-semibold">Wed</div>
-          <div class="w-1/7 text-center font-semibold">Thu</div>
-          <div class="w-1/7 text-center font-semibold">Fri</div>
-          <div class="w-1/7 text-center font-semibold">Sat</div>
-        </div>
-        <div class="grid grid-cols-7 gap-2 p-2">
           <div
-            v-for="day in daysInMonth"
-            :key="day"
-            class="text-center bg-white rounded cursor-pointer w-1/7 h-20 p-4"
-            :class="{
-              'text-black': !isHoliday(day),
-              'text-black bg-yellow-200': isToday(day),
-              'bg-red-400': hasReminder(currentYearValue, currentMonthValue, day), // Mark the day with a reminder
-            }"
-            @click="selectDay(currentYearValue, currentMonthValue, day)"
+            class="flex items-center justify-between p-2 bg-blue-500 text-white rounded-t-lg"
           >
-            {{ day }}
-            <span v-if="isHoliday(day)" class="text-xs text-red-500 font-bold">
-              {{ getHolidayName(day) }}
-            </span>
+            <i class="fas fa-angle-left cursor-pointer" @click="previousMonth">
+              Previous
+            </i>
+            <div class="text-lg">{{ currentMonth }}</div>
+            <i class="fas fa-angle-right cursor-pointer" @click="nextMonth">
+              Next
+            </i>
+          </div>
+          <div class="flex justify-between bg-blue-500 text-white p-2">
+            <div class="w-1/7 text-center font-semibold">Sun</div>
+            <div class="w-1/7 text-center font-semibold">Mon</div>
+            <div class="w-1/7 text-center font-semibold">Tue</div>
+            <div class="w-1/7 text-center font-semibold">Wed</div>
+            <div class="w-1/7 text-center font-semibold">Thu</div>
+            <div class="w-1/7 text-center font-semibold">Fri</div>
+            <div class="w-1/7 text-center font-semibold">Sat</div>
+          </div>
+          <div class="grid grid-cols-7 gap-2 p-2" style="font-size: 0.8rem">
+            <div
+              v-for="day in daysInMonth"
+              :key="day"
+              class="text-center bg-white rounded cursor-pointer w-1/7 h-20 p-4"
+              :class="{
+                'text-black': !isHoliday(day),
+                'text-black bg-yellow-200': isToday(day),
+                'bg-red-400': hasReminder(
+                  currentYearValue,
+                  currentMonthValue,
+                  day
+                ),
+              }"
+              @click="selectDay(currentYearValue, currentMonthValue, day)"
+            >
+              {{ day }}
+              <br />
+              <!-- Adiciona uma quebra de linha -->
+              <span
+                v-if="isHoliday(day)"
+                class="text-left  text-red-500 font-bold"
+              >
+                {{ getHolidayName(day).substring(0, 5) }}
+              </span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div v-if="reminderPopup" class="fixed inset-0 flex items-center justify-center">
-      <div class="bg-white p-4 rounded-lg shadow-lg">
-        <div class="text-red-500">Lembrete para o dia {{ selectedDay }}</div>
-        <div class="p-2">{{ remindersByYearMonthDay[currentYearValue] && remindersByYearMonthDay[currentYearValue][currentMonthValue] && remindersByYearMonthDay[currentYearValue][currentMonthValue][selectedDay] }}</div>
-        <button @click="removeReminder(currentYearValue, currentMonthValue, selectedDay)" class="text-white bg-red-500 px-3 py-1 rounded mt-4">
-          Remover Lembrete
-        </button>
-        <button @click="reminderPopup = false" class="text-white bg-blue-500 px-3 py-1 rounded mt-2">
-          Fechar
-        </button>
+      <!-- Conteúdo do card azul (sem a necessidade de div extra) -->
+      <div class="rounded-lg shadow-lg calendar bg-blue-500">
+        <!-- Conteúdo do card azul -->
+      </div>
+
+      <div
+        v-if="reminderPopup"
+        class="fixed inset-0 flex items-center justify-center"
+      >
+        <div class="bg-white p-4 rounded-lg shadow-lg">
+          <div class="text-red-500">Lembrete para o dia {{ selectedDay }}</div>
+          <div class="p-2">
+            {{
+              remindersByYearMonthDay[currentYearValue] &&
+              remindersByYearMonthDay[currentYearValue][currentMonthValue] &&
+              remindersByYearMonthDay[currentYearValue][currentMonthValue][
+                selectedDay
+              ]
+            }}
+          </div>
+          <button
+            @click="
+              removeReminder(currentYearValue, currentMonthValue, selectedDay)
+            "
+            class="text-white bg-red-500 px-3 py-1 rounded mt-4"
+          >
+            Remover Lembrete
+          </button>
+          <button
+            @click="reminderPopup = false"
+            class="text-white bg-blue-500 px-3 py-1 rounded mt-2"
+          >
+            Fechar
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import { readHoliday } from "@/model/services";
-import  TheSidebar  from "@/components/TheSidebar.vue";
+import TheSidebar from "@/components/TheSidebar.vue";
 
 const ano = ref([]);
 const events = ref([]);
@@ -102,9 +150,11 @@ const selectedMonth = ref(null);
 const selectedDay = ref(null);
 const two = ref(false);
 const reminderPopup = ref(false);
+const isSmallScreen = true;
 
-// Recuperar os lembretes do localStorage ao iniciar a aplicação
-const remindersByYearMonthDay = ref(JSON.parse(localStorage.getItem("reminders")) || {});
+const remindersByYearMonthDay = ref(
+  JSON.parse(localStorage.getItem("reminders")) || {}
+);
 
 async function onReadHoliday(event) {
   await readHoliday(event).then((response) => {
@@ -124,8 +174,10 @@ function saveReminder(year, month, day, message) {
 
   two.value = false;
   reminderText.value = "";
-  // Salvar os lembretes no localStorage
-  localStorage.setItem("reminders", JSON.stringify(remindersByYearMonthDay.value));
+  localStorage.setItem(
+    "reminders",
+    JSON.stringify(remindersByYearMonthDay.value)
+  );
 }
 
 function removeReminder(year, month, day) {
@@ -134,8 +186,10 @@ function removeReminder(year, month, day) {
     remindersByYearMonthDay.value[year][month]
   ) {
     delete remindersByYearMonthDay.value[year][month][day];
-    // Atualizar o localStorage após a remoção
-    localStorage.setItem("reminders", JSON.stringify(remindersByYearMonthDay.value));
+    localStorage.setItem(
+      "reminders",
+      JSON.stringify(remindersByYearMonthDay.value)
+    );
   }
   reminderPopup.value = false;
 }
@@ -144,7 +198,11 @@ function selectDay(year, month, day) {
   selectedYear.value = year;
   selectedMonth.value = month;
   selectedDay.value = day;
-  if (remindersByYearMonthDay.value[year] && remindersByYearMonthDay.value[year][month] && remindersByYearMonthDay.value[year][month][day]) {
+  if (
+    remindersByYearMonthDay.value[year] &&
+    remindersByYearMonthDay.value[year][month] &&
+    remindersByYearMonthDay.value[year][month][day]
+  ) {
     reminderPopup.value = true;
   } else {
     two.value = true;
@@ -197,14 +255,14 @@ const daysInMonth = computed(() => {
 function previousMonth() {
   const year = currentYearValue.value;
   const month = currentMonthValue.value;
-  currentDate.value = new Date(year, month - 2, 1); // -2 to go back one month
+  currentDate.value = new Date(year, month - 2, 1);
   onReadHoliday(year);
 }
 
 function nextMonth() {
   const year = currentYearValue.value;
   const month = currentMonthValue.value;
-  currentDate.value = new Date(year, month, 1); // No change for next month
+  currentDate.value = new Date(year, month, 1);
   onReadHoliday(year);
 }
 
@@ -220,6 +278,12 @@ function getHolidayName(day) {
   const month = currentMonthValue.value;
   const event = events.value[month].find((event) => event.day === day);
   return event ? event.name : "";
+}
+
+function getHolidayPreview(day) {
+  const month = currentMonthValue.value;
+  const event = events.value[month].find((event) => event.day === day);
+  return event ? event.name.substring(0, 5) + "..." : "";
 }
 
 function hasReminder(year, month, day) {
@@ -239,3 +303,12 @@ function isToday(day) {
   );
 }
 </script>
+
+<style>
+/* Impedir que o calendário cresça para cima */
+.calendar {
+  max-height: 100%;
+  max-width: 100%; /* Define uma altura máxima de 100% da altura da tela */
+  overflow-y: auto;
+}
+</style>
