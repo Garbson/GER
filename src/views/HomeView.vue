@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('public/img/background.jpg')]"
+    class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.jpg')]"
   >
     <TheSidebar></TheSidebar>
     <div
@@ -75,7 +75,7 @@
               :class="{
                 'text-black': !isHoliday(day),
                 'text-black bg-yellow-200': isToday(day),
-                'bg-red-300': hasReminder(
+                'bg-blue-300': hasReminder(
                   currentYearValue,
                   currentMonthValue,
                   day
