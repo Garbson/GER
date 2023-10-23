@@ -18,6 +18,16 @@ const router = createRouter({
       name: "home",
       component: () => import("../views/HomeView.vue"),
     },
+    {
+      path: "/metas",
+      name: "metas",
+      component: () => import("../views/MetasView.vue"),
+    },
+    {
+      path: "/tarefas",
+      name: "tarefas",
+      component: () => import("../views/TarefasView.vue"),
+    },
   ],
 });
 
