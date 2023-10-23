@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('src/img/background.jpg')]">
+  <div class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('public/img/background.jpg')]">
     <TheSidebar></TheSidebar>
     <div class="flex justify-center items-center">
       <div class="max-w-lg w-11/12 h-full mb-5 p-8 bg-white rounded-lg shadow-md relative mt-5">

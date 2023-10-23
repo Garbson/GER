@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-[url('src/img/background.jpg')] h-screen bg-cover flex items-center justify-center"
+    class="bg-[url('public/img/background.jpg')] h-screen bg-cover flex items-center justify-center"
   >
     <div
       class="bg-gradient-to-r from-sky-500 to-indigo-500 w-3/5 flex items-center justify-center flex-col flex-wrap space-y-4 p-4 rounded-lg"
