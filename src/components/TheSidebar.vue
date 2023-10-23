@@ -1,7 +1,6 @@
 <template>
   <div>
     <button v-if="!isSidebarOpen" class="sidebar-toggle" @click="toggleSidebar">
-      <img alt="Menu" class="menu" src="/icons/menuSideBar.svg" />
     </button>
     <aside
       :class="{ 'sidebar-open': isSidebarOpen, 'sidebar-close': !isSidebarOpen }"
