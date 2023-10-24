@@ -1,12 +1,13 @@
 <template>
   <div
-    class="bg-[url('public/img/background.jpg')] h-screen bg-cover flex items-center justify-center"
+    class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.jpg')] text-center items-center object-center justify-center"
   >
+
     <div
-      class="bg-gradient-to-r from-sky-500 to-indigo-500 w-3/5 flex items-center justify-center flex-col flex-wrap space-y-4 p-4 rounded-lg"
+      class=" bg-gradient-to-r from-sky-500 to-indigo-500 w-3/5 flex space-y-4 p-5 mt-5 mb-5"
     >
       <!-- Card de Login -->
-      <div v-if="!isCadastro">
+      <div class="flex content-center flex-wrap text-center justify-center" v-if="!isCadastro">
         <label for="email" class="text-white text-xl font-mono">EMAIL:</label>
         <div class="bg-white w-full h-10 rounded-lg">
           <input
@@ -42,6 +43,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>

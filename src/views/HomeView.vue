@@ -280,11 +280,6 @@ function getHolidayName(day) {
   return event ? event.name : "";
 }
 
-function getHolidayPreview(day) {
-  const month = currentMonthValue.value;
-  const event = events.value[month].find((event) => event.day === day);
-  return event ? event.name.substring(0, 5) + "..." : "";
-}
 
 function hasReminder(year, month, day) {
   return (

@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-[url('public/img/background.jpg')] h-screen bg-cover flex items-center justify-center">
-    <div class="bg-gradient-to-r from-sky-500 to-indigo-500 w-3/5 flex items-center justify-center flex-col flex-wrap space-y-4 p-4 rounded-lg">
+  <div class="min-h-screen flex-col flex font-mukta bg-repeat bg-cover bg-[url('/img/background.jpg')]  text-center items-center object-center justify-center">
+    <div class="bg-gradient-to-r from-sky-500 to-indigo-500 w-3/5 flex items-center justify-center flex-col flex-wrap space-y-4 p-4 rounded-lg mt-5 mb-5">
       <label for="emailCadastro" class="text-white text-xl font-mono">EMAIL:</label>
       <div class="bg-white w-full h-10 rounded-lg">
         <input type="text" id="emailCadastro" v-model="user.email" placeholder="Digite seu email" class="w-full h-full p-2 rounded-lg" />
