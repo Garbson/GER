@@ -71,24 +71,28 @@
             <div
               v-for="day in daysInMonth"
               :key="day"
-              class="text-center bg-white rounded cursor-pointer w-1/7 h-20 p-4"
+              class="text-center rounded cursor-pointer w-1/7 h-20 p-4"
               :class="{
                 'text-black': !isHoliday(day),
-                'text-black bg-yellow-200': isToday(day),
                 'bg-blue-300': hasReminder(
                   currentYearValue,
                   currentMonthValue,
                   day
                 ),
+                'bg-white': !hasReminder(
+                  currentYearValue,
+                  currentMonthValue,
+                  day
+                ),
+                'text-black bg-yellow-200': isToday(day),
               }"
               @click="selectDay(currentYearValue, currentMonthValue, day)"
             >
               {{ day }}
               <br />
-              <!-- Adiciona uma quebra de linha -->
               <span
                 v-if="isHoliday(day)"
-                class="text-left  text-red-500 font-bold"
+                class="text-left text-red-500 font-bold"
               >
                 {{ getHolidayName(day).substring(0, 5) }}
               </span>
@@ -279,7 +283,6 @@ function getHolidayName(day) {
   const event = events.value[month].find((event) => event.day === day);
   return event ? event.name : "";
 }
-
 
 function hasReminder(year, month, day) {
   return (
