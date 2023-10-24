@@ -62,8 +62,7 @@ const user = {
 
 function fazerLogin() {
   // Simulação de validação de login (substitua por sua lógica real)
-  const usuariosCadastrados =
-    JSON.parse(localStorage.getItem("usuarios")) || [];
+  const usuariosCadastrados = JSON.parse(localStorage.getItem("usuarios")) || [];
   const usuarioEncontrado = usuariosCadastrados.find(
     (u) => u.email === user.email && u.senha === user.senha
   );
@@ -71,6 +70,9 @@ function fazerLogin() {
   if (usuarioEncontrado) {
     // Armazenar os dados do usuário no Local Storage
     localStorage.setItem("user", JSON.stringify(usuarioEncontrado));
+    
+    // Definir a variável "auth" como true após o login bem-sucedido
+    localStorage.setItem("auth", "true");
 
     router.push("/home");
   } else {
